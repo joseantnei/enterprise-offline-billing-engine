@@ -1,0 +1,36 @@
+﻿<Window x:Class="EnterpriseBilling.UI.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EnterpriseBilling.UI"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid Background="#F4F6F9">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" Background="#1E293B" CornerRadius="0,15,15,0">
+            <StackPanel Margin="20">
+                <TextBlock Text="⚡ Enterprise Billing" 
+                       Foreground="White" 
+                       FontSize="20" 
+                       FontWeight="Bold" 
+                       Margin="0,0,0,30"/>
+
+                <Button Content="Dashboard" 
+                        Height="40" Margin="0,5" Background="#334155" Foreground="White" BorderThickness="0"/>
+                <Button Content="Invoices (Facturas)" 
+                        Height="40" Margin="0,5" Background="Transparent" Foreground="#94A3B8" BorderThickness="0"/>
+                <Button Content="Customers (Clientes)" 
+                        Height="40" Margin="0,5" Background="Transparent" Foreground="#94A3B8" BorderThickness="0"/>
+                <Button Content="Settings" 
+                        Height="40" Margin="0,5" Background="Transparent" Foreground="#94A3B8" BorderThickness="0"/>
+            </StackPanel>
+        </Border>
+
+        <ContentPresenter Grid.Column="1" Margin="30" Content="{Binding CurrentView}"/>
+    </Grid>
+</Window>

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace EnterpriseBilling.UI.ViewModels
 {
-    class DashboardViewModel : ObservableObject
+    public class DashboardViewModel : ObservableObject
     {
     }
 }

@@ -3,6 +3,7 @@ using System;
 using EnterpriseBilling.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EnterpriseBilling.UI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260531142422_Semillas")]
+    partial class Semillas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.8");
@@ -72,8 +75,8 @@ namespace EnterpriseBilling.UI.Migrations
                     b.Property<int>("IdProduct")
                         .HasColumnType("INTEGER");
 
-                    b.Property<decimal>("PercentTaxes")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("PercentTaxes")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("ProductIdProduct")
                         .HasColumnType("INTEGER");
@@ -216,7 +219,7 @@ namespace EnterpriseBilling.UI.Migrations
                         {
                             IdTaxesType = 3,
                             NameTaxes = "IVA (13%)",
-                            Percent = 13m
+                            Percent = 18m
                         });
                 });
 

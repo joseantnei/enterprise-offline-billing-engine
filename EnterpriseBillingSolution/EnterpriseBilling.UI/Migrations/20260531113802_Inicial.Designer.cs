@@ -3,6 +3,7 @@ using System;
 using EnterpriseBilling.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EnterpriseBilling.UI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260531113802_Inicial")]
+    partial class Inicial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.8");
@@ -72,8 +75,8 @@ namespace EnterpriseBilling.UI.Migrations
                     b.Property<int>("IdProduct")
                         .HasColumnType("INTEGER");
 
-                    b.Property<decimal>("PercentTaxes")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("PercentTaxes")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("ProductIdProduct")
                         .HasColumnType("INTEGER");
@@ -114,15 +117,6 @@ namespace EnterpriseBilling.UI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Email = "xxx@xxx.com",
-                            Name = "end consumer",
-                            Phone = "000000000"
-                        });
                 });
 
             modelBuilder.Entity("EnterpriseBilling.UI.Models.Product", b =>
@@ -135,15 +129,15 @@ namespace EnterpriseBilling.UI.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("Cost")
-                        .HasColumnType("TEXT");
+                    b.Property<float>("Cost")
+                        .HasColumnType("REAL");
 
                     b.Property<string>("NameProduct")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<decimal>("SalePrice")
-                        .HasColumnType("TEXT");
+                    b.Property<float>("SalePrice")
+                        .HasColumnType("REAL");
 
                     b.Property<int>("Stock")
                         .HasColumnType("INTEGER");
@@ -151,35 +145,6 @@ namespace EnterpriseBilling.UI.Migrations
                     b.HasKey("IdProduct");
 
                     b.ToTable("Products");
-
-                    b.HasData(
-                        new
-                        {
-                            IdProduct = 1,
-                            Barcode = "101010",
-                            Cost = 20m,
-                            NameProduct = "KeyBoard RGB",
-                            SalePrice = 24.50m,
-                            Stock = 20
-                        },
-                        new
-                        {
-                            IdProduct = 2,
-                            Barcode = "202020",
-                            Cost = 10m,
-                            NameProduct = "Mouse RGB",
-                            SalePrice = 14.50m,
-                            Stock = 20
-                        },
-                        new
-                        {
-                            IdProduct = 3,
-                            Barcode = "303030",
-                            Cost = 11m,
-                            NameProduct = "Windows licences",
-                            SalePrice = 12.8m,
-                            Stock = 20
-                        });
                 });
 
             modelBuilder.Entity("EnterpriseBilling.UI.Models.TaxesType", b =>
@@ -205,18 +170,6 @@ namespace EnterpriseBilling.UI.Migrations
                             IdTaxesType = 1,
                             NameTaxes = "Exento de Impuestos",
                             Percent = 0m
-                        },
-                        new
-                        {
-                            IdTaxesType = 2,
-                            NameTaxes = "GST/IVA (18%)",
-                            Percent = 18m
-                        },
-                        new
-                        {
-                            IdTaxesType = 3,
-                            NameTaxes = "IVA (13%)",
-                            Percent = 13m
                         });
                 });
 

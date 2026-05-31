@@ -23,5 +23,42 @@ namespace EnterpriseBilling.UI.Views
 
             DataContext = new MainViewModel();
         }
+
+        // AGREGADO: Se ejecuta justo cuando la ventana aparece en pantalla
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            ProbarConexionBaseDeDatos();
+        }
+
+        // AGREGADO: Lógica de prueba
+        private void ProbarConexionBaseDeDatos()
+        {
+            try
+            {
+                using (var context = new AppDbContext())
+                {
+                    int userCount = context.Users.Count();
+
+                    if (userCount > 0)
+                    {
+                        txtDbStatus.Text = $"Conectado a SQLite. Usuarios en BD: {userCount}";
+                        txtDbStatus.Foreground = System.Windows.Media.Brushes.DarkGreen;
+                    }
+                    else
+                    {
+                        txtDbStatus.Text = "Conectado, pero la base de datos está vacía.";
+                        txtDbStatus.Foreground = System.Windows.Media.Brushes.DarkOrange;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                txtDbStatus.Text = "Error de conexión";
+                txtDbStatus.Foreground = System.Windows.Media.Brushes.Red;
+
+                MessageBox.Show($"Ocurrió un error al conectar con SQLite:\n\n{ex.Message}",
+                                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 }

@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EnterpriseBilling.UI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"
+        Loaded="Window_Loaded">
     <Grid Background="#F4F6F9">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"/>
@@ -24,15 +25,34 @@
                         Command="{Binding NavigateDashboardCommand}"
                         Height="40" Margin="0,5" Background="#334155" Foreground="White" BorderThickness="0"/>
                 <Button Content="Invoices (Facturas)" 
+                        Command="{Binding NavigateInvoicesCommand}"
                         Height="40" Margin="0,5" Background="Transparent" Foreground="#94A3B8" BorderThickness="0"/>
                 <Button Content="Customers (Clientes)" 
                         Command="{Binding NavigateCustomersCommand}"
+                        Height="40" Margin="0,5" Background="Transparent" Foreground="#94A3B8" BorderThickness="0"/>
+                <Button Content="Products" 
+                        Command="{Binding NavigateProductsCommand}"
                         Height="40" Margin="0,5" Background="Transparent" Foreground="#94A3B8" BorderThickness="0"/>
                 <Button Content="Settings" 
                         Height="40" Margin="0,5" Background="Transparent" Foreground="#94A3B8" BorderThickness="0"/>
             </StackPanel>
         </Border>
 
-        <ContentPresenter Grid.Column="1" Margin="30" Content="{Binding CurrentView}"/>
+        <!--ContentPresenter Grid.Column="1" Margin="30" Content="{Binding CurrentView}"/-->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+
+            <ContentPresenter Grid.Row="0" Margin="30" Content="{Binding CurrentView}"/>
+
+            <Border Grid.Row="1" Background="#E2E8F0">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0">
+                    <TextBlock Text="Estado BD: " FontWeight="Bold" Foreground="#475569"/>
+                    <TextBlock x:Name="txtDbStatus" Text="Verificando..." Foreground="#3B82F6"/>
+                </StackPanel>
+            </Border>
+        </Grid>
     </Grid>
 </Window>

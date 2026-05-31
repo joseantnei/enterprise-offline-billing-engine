@@ -9,6 +9,29 @@
     <Border Background="White" CornerRadius="10" Padding="20" Margin="10">
         <StackPanel>
             <TextBlock Text="Gestión de Clientes" FontSize="20" FontWeight="Bold"/>
+            <TextBlock Text="Agregar Nuevo Cliente" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                <TextBox Width="150" Text="{Binding Name}" Margin="5" ToolTip="Nombre"/>
+                <TextBox Width="150" Text="{Binding Email}" Margin="5" ToolTip="Email"/>
+                <TextBox Width="150" Text="{Binding Phone}" Margin="5" ToolTip="Teléfono"/>
+                <Button Content="Guardar" Command="{Binding AddCustomerCommand}" Width="80" Margin="5"/>
+            </StackPanel>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Gestión de Clientes" FontSize="20" FontWeight="Bold" Margin="0,0,0,20"/>
+
+                <DataGrid Grid.Row="1" 
+                      ItemsSource="{Binding Customers}" 
+                      AutoGenerateColumns="True" 
+                      IsReadOnly="True" 
+                      GridLinesVisibility="Horizontal"/>
+            </Grid>
         </StackPanel>
     </Border>
 </UserControl>

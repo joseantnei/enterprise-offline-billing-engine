@@ -21,6 +21,7 @@ namespace EnterpriseBilling.UI.Views
         public CustomersView()
         {
             InitializeComponent();
+            DataContext = new ViewModels.CustomersViewModel();
         }
     }
 }

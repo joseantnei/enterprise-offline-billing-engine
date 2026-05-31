@@ -6,7 +6,9 @@
              xmlns:local="clr-namespace:EnterpriseBilling.UI.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="White">
-        <TextBlock Text="Módulo de Clientes" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-    </Grid>
+    <Border Background="White" CornerRadius="10" Padding="20" Margin="10">
+        <StackPanel>
+            <TextBlock Text="Gestión de Clientes" FontSize="20" FontWeight="Bold"/>
+        </StackPanel>
+    </Border>
 </UserControl>

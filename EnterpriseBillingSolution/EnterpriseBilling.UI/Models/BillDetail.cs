@@ -13,11 +13,11 @@ namespace EnterpriseBilling.UI.Models
 
         //Dependencias Bill IdBill, Product IdProduct.
         [ForeignKey(nameof(IdBill))]
-        public int IdBill {  get; set; }
         public virtual Bill Bill { get; set; }
+        public int IdBill {  get; set; }
         
         [ForeignKey(nameof(IdProduct))]
-        public int IdProduct { get; set; }
         public virtual Product Product { get; set; }
+        public int IdProduct { get; set; }
     }
 }

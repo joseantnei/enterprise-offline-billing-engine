@@ -101,6 +101,19 @@ namespace EnterpriseBilling.UI.ViewModels
 
             TotalPay = SubTotal + TotalTaxes;
         }
+        private void ResetInvoice()
+        {
+            InvoiceItems.Clear();
+            SubTotal = 0;
+            TotalTaxes = 0;
+            TotalPay = 0;
+
+            // Notificamos todo de un solo golpe
+            OnPropertyChanged(nameof(SubTotal));
+            OnPropertyChanged(nameof(TotalTaxes));
+            OnPropertyChanged(nameof(TotalPay));
+            OnPropertyChanged(nameof(InvoiceItems));
+        }
 
         //Guarda Factura
         private void ExecuteSaveInvoice()
@@ -161,7 +174,7 @@ namespace EnterpriseBilling.UI.ViewModels
 
                     db.SaveChanges();
                     MessageBox.Show($"Factura {newBill.BillNumber} emitida con éxito en SQLite y Stock actualizado.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
-                    InvoiceItems.Clear();
+                    ResetInvoice();
                 }
             }
             catch (Exception ex)

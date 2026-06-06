@@ -18,5 +18,8 @@
         <DataTemplate DataType="{x:Type viewmodels:InvoicesViewModel}">
             <views:InvoicesView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:InvoiceHistoryViewModel}">
+            <views:InvoiceHistoryView/>
+        </DataTemplate>
     </Application.Resources>
 </Application>

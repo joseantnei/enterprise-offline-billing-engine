@@ -24,8 +24,11 @@
                 <Button Content="Dashboard" 
                         Command="{Binding NavigateDashboardCommand}"
                         Height="40" Margin="0,5" Background="#334155" Foreground="White" BorderThickness="0"/>
-                <Button Content="Invoices (Facturas)" 
+                <Button Content="Invoice (Factura)" 
                         Command="{Binding NavigateInvoicesCommand}"
+                        Height="40" Margin="0,5" Background="Transparent" Foreground="#94A3B8" BorderThickness="0"/>
+                <Button Content="Invoices History" 
+                        Command="{Binding NavigateInvoiceHistoryCommand}"
                         Height="40" Margin="0,5" Background="Transparent" Foreground="#94A3B8" BorderThickness="0"/>
                 <Button Content="Customers (Clientes)" 
                         Command="{Binding NavigateCustomersCommand}"

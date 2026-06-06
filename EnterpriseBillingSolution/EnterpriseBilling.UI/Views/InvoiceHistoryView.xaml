@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="EnterpriseBilling.UI.Views.InvoiceHistoryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="700"
+             Background="#F4F6F9">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="White" CornerRadius="8" Padding="15" Margin="0,0,0,15" BorderThickness="1" BorderBrush="#E2E8F0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock Text="INVOICE HISTORY" FontSize="18" FontWeight="Bold" Foreground="#1E293B"/>
+                    <TextBlock Text="Double-click any row to view items" FontSize="11" Foreground="#64748B"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Margin="20,0,0,0">
+                    <TextBlock Text="Search by Invoice Number or Customer Name:" FontWeight="SemiBold" Foreground="#475569" Margin="0,0,0,5"/>
+                    <TextBox Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}" Height="35" VerticalContentAlignment="Center" Padding="5,0"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <DataGrid Grid.Row="1" ItemsSource="{Binding FilteredInvoices}" SelectedItem="{Binding SelectedInvoice}" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" Background="White" RowHeight="35" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#E2E8F0">
+            <DataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding OpenDetailsCommand}"/>
+            </DataGrid.InputBindings>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Invoice Number" Binding="{Binding BillNumber}" Width="150"/>
+                <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat={}{0:yyyy-MM-dd HH:mm}}" Width="140"/>
+                <DataGridTextColumn Header="Customer" Binding="{Binding Customer.Name}" Width="*"/>
+                <DataGridTextColumn Header="Total Paid" Binding="{Binding TotalPay, StringFormat=C2}" Width="120">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="FontWeight" Value="Bold"/>
+                            <Setter Property="Foreground" Value="#10B981"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Border Grid.Row="2" Background="#E2E8F0" Height="30" Margin="0,10,0,0" CornerRadius="4">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0">
+                <TextBlock Text="Total Invoices Found: " FontWeight="SemiBold" Foreground="#475569"/>
+                <TextBlock Text="{Binding FilteredInvoices.Count}" FontWeight="Bold" Foreground="#1E293B"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

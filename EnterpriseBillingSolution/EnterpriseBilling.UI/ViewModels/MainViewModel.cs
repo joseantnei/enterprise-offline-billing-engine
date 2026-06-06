@@ -21,6 +21,7 @@ namespace EnterpriseBilling.UI.ViewModels
         public ICommand NavigateCustomersCommand { get; }
         public ICommand NavigateProductsCommand { get; }
         public ICommand NavigateInvoicesCommand { get; }
+        public ICommand NavigateInvoiceHistoryCommand { get; }
 
         //Constructor
         public MainViewModel() 
@@ -30,13 +31,14 @@ namespace EnterpriseBilling.UI.ViewModels
             var costumersVm = new CustomersViewModel();
             var productsVm = new ProductsViewModel();
             var invoicesVm = new InvoicesViewModel();
+            var invoiceHistoryVm = new InvoiceHistoryViewModel();
 
             //Emlazarlo
             NavigateDashboardCommand = new RelayCommand(_  => CurrentView = dashboardVm);
             NavigateCustomersCommand = new RelayCommand(_ => CurrentView = costumersVm);
             NavigateProductsCommand = new RelayCommand(_ => CurrentView = productsVm);
             NavigateInvoicesCommand = new RelayCommand(_ => CurrentView = invoicesVm);
-
+            NavigateInvoiceHistoryCommand = new RelayCommand(_ => CurrentView = invoiceHistoryVm);
             CurrentView = dashboardVm;
         }
     }

@@ -1,4 +1,5 @@
 ﻿using EnterpriseBilling.UI.Models;
+using EnterpriseBilling.UI.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,6 +24,7 @@ namespace EnterpriseBilling.UI.ViewModels
 
         public ICommand SearchProductCommand { get; set; }
         public ICommand SaveInvoiceCommand { get; set; }
+        public ICommand OpenCustomerSearchCommand { get; set; }
 
         public InvoicesViewModel()
         {
@@ -37,6 +39,7 @@ namespace EnterpriseBilling.UI.ViewModels
             // Dos maneras de usar el relaycommand agregando object? parameter o una funcion lambda
             SearchProductCommand = new RelayCommand(ExecuteSearchProduct);
             SaveInvoiceCommand = new RelayCommand(p => ExecuteSaveInvoice());
+            OpenCustomerSearchCommand = new RelayCommand(ExecuteOpenCustomerSearch);
         }
 
         public string CustomerName { get { return _customerName; } set { _customerName = value; OnPropertyChanged(); } }
@@ -61,7 +64,7 @@ namespace EnterpriseBilling.UI.ViewModels
             {
                 //Buscando Taxes
                 var defaultTax = db.TaxesTypes.FirstOrDefault(t => t.IdTaxesType == 3);
-                
+
                 //Buscando Producto
                 var product = db.Products
                     .FirstOrDefault(p => p.Barcode == BarcodeSearch);
@@ -74,8 +77,8 @@ namespace EnterpriseBilling.UI.ViewModels
                     }
                     else
                     {
-                        InvoiceItems.Add(new InvoiceItemRow 
-                        { 
+                        InvoiceItems.Add(new InvoiceItemRow
+                        {
                             ProductId = product.IdProduct,
                             Barcode = product.Barcode,
                             ProductName = product.NameProduct,
@@ -90,6 +93,31 @@ namespace EnterpriseBilling.UI.ViewModels
                 else
                 {
                     MessageBox.Show("Producto no encontrado", "Aviso", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+        }
+
+        private void ExecuteOpenCustomerSearch(object? parameter)
+        {
+            // 1. Instanciamos la ventana que creamos en el Paso 1
+            var searchWindow = new CustomerSearchWindow();
+
+            // 2. Le decimos a Windows quién es su "madre" visual para que no se pierda en el fondo
+            searchWindow.Owner = Application.Current.MainWindow;
+
+            // 3. .ShowDialog() abre la ventana de forma "Bloqueante". 
+            // El código de abajo se detiene y espera a que el cajero termine de elegir.
+            if (searchWindow.ShowDialog() == true)
+            {
+                // 4. Si el cajero seleccionó un cliente con éxito, extraemos el objeto completo
+                var customer = searchWindow.SelectedCustomer;
+
+                if (customer != null)
+                {
+                    // 5. Actualizamos las variables del ViewModel. 
+                    // El cambio se reflejará solo en el TextBox del XAML gracias al OnPropertyChanged()
+                    this._id = customer.Id;
+                    this.CustomerName = customer.Name;
                 }
             }
         }
@@ -160,7 +188,7 @@ namespace EnterpriseBilling.UI.ViewModels
                             IdProduct = item.ProductId,
                             Quantity = item.Quantity,
                             UnitPrice = item.UnitPrice,
-                            PercentTaxes = item.TaxPercent 
+                            PercentTaxes = item.TaxPercent
                         };
                         db.BillDetails.Add(detail);
 
@@ -209,4 +237,6 @@ namespace EnterpriseBilling.UI.ViewModels
         protected void OnPropertyChanged([CallerMemberName] string propName = null) =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
     }
+
+    
 }
